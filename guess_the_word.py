@@ -130,7 +130,7 @@ def display_found_letters(userGuessesList, hangmanWord):
             
         # Checks if the numberOfCorrectLetters is the same length as the word
         # and if so, the word has been found.
-        if len(numberOfCorrectLetters) == len(hangmanWord):
+        if numberOfCorrectLetters == len(hangmanWord):
             foundAllLetters = True
 
         # Checks if the current index has reached the end of the hangman word
@@ -142,11 +142,67 @@ def display_found_letters(userGuessesList, hangmanWord):
     return foundAllLetters
 
 
-
 # List needs to be visibile to be testable
 hangmanWordList = ['HORSESHOE', 'TELEPORT', 'MOUNTAIN', 'NOTEBOOK',
                     'BLIZZARD', 'UMBRELLA', 'DINOSAUR', 'KEYBOARD',
                     'SANDWICH', 'TREASURE']
+
+
+# Start main
+def main():
+    # Sets all needed variables
+    ###
+    # Realized as I started testing that the hangman list in in the main functions and thus
+    # cant be tested. As I original planned, so I had to move it to its own function
+    ###
+    hangmanWord = ""
+    userGuessesList = []
+    userInput = ""
+    attemptsRemaining = 10
+    
+
+    # Seclects a word at random from the hangman word list
+    hangmanWord = pick_a_random_word()
+
+    # Greets the user
+    print("Welcome to\n \"Kind of Rude Hangmaaan!\"")
+    print("A word has already been selected, start your guessing now!\n")
+
+    while attemptsRemaining > 0:
+    
+        userInput = input("Please enter the letter you would like to guess: ")
+        userInput = userInput.upper()
+
+        if userInput == "STOP":
+            print("Awwww, is someone scared to spell?")
+            print("Thats okay, I hope you still have a great day")
+            break
+
+        if confirm_valid_input(userInput) == False:
+            print("That was not a valid input. Please enter a single letter",
+                  " or the word STOP in uppercase, as shown here.")
+            continue
+
+        if find_guess_in_hangmanWord(userInput, userGuessesList, hangmanWord) == False:
+            attemptsRemaining -= 1
+            print("That letter is not in the word, hahaha, that sucks.")
+            continue
+        else:
+            userGuessesList.append(userInput)
+
+
+        if display_found_letters(userGuessesList, hangmanWord) == True:
+            print("... welp, you found all the letters. I really didn't think",
+                  " you'd pull it off, sorry for doubting you. Congratulations.")
+            break
+   
+    if attemptsRemaining == 0:
+        print("And you are now out of attempts. Sorry champ, you didnt quite",
+              " get the word!")
+
+    print("Thanks for playing! Come back again if you think you can beat me!")
+# END
+
 
 
 
