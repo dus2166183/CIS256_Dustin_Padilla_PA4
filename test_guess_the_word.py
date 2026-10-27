@@ -1,3 +1,8 @@
+# Your Name
+# CIS256 Fall 2026
+# Programming Assignment 4
+# test file for guess_the_word.py
+
 from guess_the_word import(
     hangmanWordList, pick_a_random_word, confirm_valid_input,
     find_guess_in_hangmanWord, display_found_letters)
