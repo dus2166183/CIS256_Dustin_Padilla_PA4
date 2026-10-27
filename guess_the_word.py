@@ -82,3 +82,71 @@
 #   IF attemptsReaming equals 0
 #       DISPLAY consoling message
 # END
+
+
+
+import random
+
+# Picks a random word to be our hangman word
+def pick_a_random_word():
+    randomWord = hangmanWordList[random.randint(0, 9)]
+    return randomWord
+
+# Checks if the user input is exactly one letter
+def confirm_valid_input(guessedLetter):
+    if len(guessedLetter) == 1 and guessedLetter.isalpha():
+        return True
+    else:
+        return False
+
+
+# Checks if user input is in the hangman word.
+def find_guess_in_hangmanWord(guessedLetter, userGuessesList, hangmanWord):
+
+    # Checks if the guessed letter is in the hangman word
+    if guessedLetter in hangmanWord:
+        return True
+    else:
+        return False
+
+
+# Displays the found letters, at the correct index, in the hangman word
+def display_found_letters(userGuessesList, hangmanWord):
+    
+    foundAllLetters = False
+    numberOfCorrectLetters = 0 
+    i = 0
+
+    while True:
+        # Finds the index of the found letters and prints them at their index
+        # otherwise it prints a "_" if that index's letter has not been found
+        if hangmanWord[i] in userGuessesList:
+            print(hangmanWord[i], end=' ')
+            numberOfCorrectLetters += 1
+            i += 1
+        else:
+            print("_", end=' ')
+            i += 1
+            
+        # Checks if the numberOfCorrectLetters is the same length as the word
+        # and if so, the word has been found.
+        if len(numberOfCorrectLetters) == len(hangmanWord):
+            foundAllLetters = True
+
+        # Checks if the current index has reached the end of the hangman word
+        if i == len(hangmanWord):
+            break
+        
+    # Newline to get off the display_found_letters output line
+    print()
+    return foundAllLetters
+
+
+
+# List needs to be visibile to be testable
+hangmanWordList = ['HORSESHOE', 'TELEPORT', 'MOUNTAIN', 'NOTEBOOK',
+                    'BLIZZARD', 'UMBRELLA', 'DINOSAUR', 'KEYBOARD',
+                    'SANDWICH', 'TREASURE']
+
+
+
